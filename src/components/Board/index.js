@@ -1,28 +1,22 @@
 import React from 'react';
 import Square from './../Square';
 
-export default function Board({ squares, step, onClick }) {
+export default function Board({ squares, onClick }) {
   const renderSquare = (i) => (
     <Square value={squares[i]} onClick={() => onClick(i)} />
   );
 
-  return (
-    <div>
-      <div className='board-row'>
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className='board-row'>
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className='board-row'>
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  );
+  const renderBoard = (squares) => {
+    const content = [];
+    for (let i = 0; i < squares.length; i += 3) {
+      const row = [];
+      for (let j = i; j < i + 3; j++) {
+        row.push(renderSquare(j));
+      }
+      content.push(<div className='board-row'>{row}</div>);
+    }
+    return content;
+  };
+
+  return <div>{renderBoard(squares)}</div>;
 }

@@ -60,13 +60,18 @@ export default function Game() {
   const winner = calculateWinner(current.squares);
 
   const moves = history.map((item, index) => {
+    console.log('index', index);
+    console.log('item', item);
     const [row, col] = convertToLocation(item.step);
     const desc = index
       ? `Go to move #${index} [${row},${col}]`
       : 'Go to game start';
     return (
       <li key={index}>
-        <button className={classnames({})} onClick={() => jumpTo(index)}>
+        <button
+          className={classnames({ 'selected-move': stepNumber === index })}
+          onClick={() => jumpTo(index)}
+        >
           {desc}
         </button>
       </li>
