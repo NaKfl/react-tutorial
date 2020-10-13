@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from './../Square';
 
-export default function Board({ squares, onClick }) {
+export default function Board({ squares, step, onClick }) {
   const renderSquare = (i) => (
     <Square value={squares[i]} onClick={() => onClick(i)} />
   );

@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { useState } from 'react';
 import Board from './../Board';
 
@@ -25,6 +26,7 @@ export default function Game() {
   const [history, setHistory] = useState([
     {
       squares: Array(9).fill(null),
+      location: null,
     },
   ]);
   const [xIsNext, setXIsNext] = useState(true);
@@ -38,7 +40,7 @@ export default function Game() {
       return;
     }
     squares[i] = xIsNext ? 'X' : 'O';
-    setHistory([...newHistory, { squares }]);
+    setHistory([...newHistory, { squares, step: i }]);
     setStepNumber(newHistory.length);
     setXIsNext(!xIsNext);
   };
@@ -48,14 +50,25 @@ export default function Game() {
     setXIsNext(step % 2 === 0);
   };
 
+  const convertToLocation = (step) => {
+    const col = (step % 3) + 1;
+    const row = Math.trunc(step / 3) + 1;
+    return [row, col];
+  };
+
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
 
-  const moves = history.map((step, move) => {
-    const desc = move ? `Go to move #${move}` : 'Go to game start';
+  const moves = history.map((item, index) => {
+    const [row, col] = convertToLocation(item.step);
+    const desc = index
+      ? `Go to move #${index} [${row},${col}]`
+      : 'Go to game start';
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+      <li key={index}>
+        <button className={classnames({})} onClick={() => jumpTo(index)}>
+          {desc}
+        </button>
       </li>
     );
   });
