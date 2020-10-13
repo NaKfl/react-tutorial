@@ -29,8 +29,10 @@ export default function Game() {
       location: null,
     },
   ]);
+
   const [xIsNext, setXIsNext] = useState(true);
   const [stepNumber, setStepNumber] = useState(0);
+  const [isDecs, setIsDecs] = useState(false);
 
   const handleClick = (i) => {
     const newHistory = history.slice(0, stepNumber + 1);
@@ -56,13 +58,16 @@ export default function Game() {
     return [row, col];
   };
 
+  const changeSort = () => {
+    setIsDecs(!isDecs);
+  };
+
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
 
   const moves = history.map((item, index) => {
-    console.log('index', index);
-    console.log('item', item);
     const [row, col] = convertToLocation(item.step);
+    let list = [];
     const desc = index
       ? `Go to move #${index} [${row},${col}]`
       : 'Go to game start';
@@ -92,7 +97,10 @@ export default function Game() {
       </div>
       <div className='game-info'>
         <div>{status}</div>
-        <ol>{moves}</ol>
+        <button onClick={changeSort}>{`Change to ${
+          !isDecs ? 'descending ' : 'ascending '
+        } order`}</button>
+        <ol>{isDecs ? moves.reverse() : moves}</ol>
       </div>
     </div>
   );
