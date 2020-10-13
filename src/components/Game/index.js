@@ -84,8 +84,12 @@ export default function Game() {
   });
 
   let status;
+  const isDraw =
+    current.squares.filter(Boolean).length === current.squares.length;
   if (winner) {
     status = 'Winner: ' + winner;
+  } else if (isDraw) {
+    status = 'Draw';
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
