@@ -1,8 +1,12 @@
+import classnames from 'classnames';
 import React from 'react';
 
-export default function Square({ value, onClick }) {
+export default function Square({ value, onClick, isHighlighted }) {
   return (
-    <button className='square' onClick={onClick}>
+    <button
+      className={classnames('square', { 'square-highlight': isHighlighted })}
+      onClick={onClick}
+    >
       {value}
     </button>
   );

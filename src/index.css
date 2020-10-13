@@ -53,3 +53,7 @@ ul {
 .selected-move {
   font-weight: bold;
 }
+
+.square-highlight {
+  color: red;
+}
