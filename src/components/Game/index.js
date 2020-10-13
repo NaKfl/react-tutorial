@@ -29,7 +29,6 @@ export default function Game() {
       location: null,
     },
   ]);
-
   const [xIsNext, setXIsNext] = useState(true);
   const [stepNumber, setStepNumber] = useState(0);
   const [isDecs, setIsDecs] = useState(false);
@@ -46,6 +45,18 @@ export default function Game() {
     setHistory([...newHistory, { squares, step: i }]);
     setStepNumber(newHistory.length);
     setXIsNext(!xIsNext);
+  };
+
+  const handleReset = () => {
+    setHistory([
+      {
+        squares: Array(9).fill(null),
+        location: null,
+      },
+    ]);
+    setXIsNext(true);
+    setStepNumber(0);
+    setIsDecs(false);
   };
 
   const jumpTo = (step) => {
@@ -105,6 +116,7 @@ export default function Game() {
       </div>
       <div className='game-info'>
         <div>{status}</div>
+        <button onClick={handleReset}>Reset</button>
         <button onClick={changeSort}>{`Change to ${
           !isDecs ? 'descending ' : 'ascending '
         } order`}</button>
